@@ -7,21 +7,14 @@ import { wrapper } from '../store/store'
 import { serverRenderClock, startClock } from '../store/tick/action'
 
 const Other = (props) => {
-  useEffect(() => {
-    const timer = props.startClock()
-
-    return () => {
-      clearInterval(timer)
-    }
-  }, [props])
-
   return <Page title="Other Page" linkTo="/" />
 }
 
 export const getServerSideProps = wrapper.getServerSideProps(
   async ({ store }) => {
-    store.dispatch(serverRenderClock(true))
     store.dispatch(addCount())
+
+    console.log("other page",store.getState().count.count);
   }
 )
 

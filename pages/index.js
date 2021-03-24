@@ -7,20 +7,12 @@ import { wrapper } from '../store/store'
 import { serverRenderClock, startClock } from '../store/tick/action'
 
 const Index = (props) => {
-  useEffect(() => {
-    const timer = props.startClock()
-
-    return () => {
-      clearInterval(timer)
-    }
-  }, [props])
-
   return <Page title="Index Page" linkTo="/other" />
 }
 
 export const getStaticProps = wrapper.getStaticProps(async ({ store }) => {
-  store.dispatch(serverRenderClock(true))
   store.dispatch(addCount())
+  console.log("index page",store.getState().count.count);
 })
 
 const mapDispatchToProps = (dispatch) => {
